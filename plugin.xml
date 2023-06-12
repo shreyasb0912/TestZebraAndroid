@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="TestZebraAndroid"
+        version="1.0">
+
+    <name>com.shreyasb.testzebra</name>
+    <description>A Cordova/Phonegap driver for Zebra bluetooth printers</description>
+    <license>Apache</license>
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+
+    <js-module src="www/zbtprinter.js" name="ZebraBluetoothPrinter">
+        <clobbers target="cordova.plugins.zbtprinter"/>
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        </config-file>
+
+        <source-file src="platforms/android/app/src/main/java/com/shreyasb/testzebra/ZebraBluetoothPrinter.java"
+                     target-dir="platforms/android/app/src/main/java/com/shreyasb/testzebra"/>
+        <source-file src="platforms/android/app/src/main/java/com/shreyasb/testzebra/ZPLConverter.java"
+                     target-dir="platforms/android/app/src/main/java/com/shreyasb/testzebra"/>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="TestZebraAndroid">
+                <param name="android-package" value="app.src.main.java.com.shreyasb.testzebra.ZebraBluetoothPrinter"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/lib/ZSDK_ANDROID_API.jar" target-dir="libs"/>
+
+    </platform>
+</plugin>
